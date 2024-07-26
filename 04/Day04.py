@@ -3,6 +3,7 @@ from collections import defaultdict
 
 PUZZLE = [line.strip() for line in fileinput.input()]
 PART_1 = 0
+PART_2 = 0
 
 def real_rooms(data):
     global PART_1
@@ -10,6 +11,34 @@ def real_rooms(data):
         name, id, checksum = parse_input(line)
         if is_real_room(name, checksum):
             PART_1 += int(id)
+
+def north_pole(data):
+    global PART_2
+    for line in data:
+        name, rotate, checksum = parse_input(line)
+        if decrypt(name, rotate) == 'northpole object storage':
+            PART_2 = rotate
+            return f'North pole objects found at id: {rotate}'
+    return -1
+        
+
+def decrypt(name, rotate):
+    res = ''
+    for char in name:
+        if char.isalpha():
+            steps = int(rotate) % 26
+            for _ in range(steps): 
+                char = move(char)
+            res += char
+        else:
+            res += ' '
+    return res
+
+def move(char):
+    if char == 'z':
+        return 'a'
+    return chr(ord(char) + 1)
+
 
 
 
@@ -19,7 +48,6 @@ def parse_input(line):
     return name, id, checksum
 
 def is_real_room(name, checksum):
-    print("new line")
     d = defaultdict(int)
     x = defaultdict(list)
     for char in name:
@@ -41,5 +69,7 @@ def is_real_room(name, checksum):
     return True
     
 
-print(real_rooms(PUZZLE))
+real_rooms(PUZZLE)
+north_pole(PUZZLE)
 print(f"Solution to part 1 is: {PART_1}")
+print(f"Solution to part 2 is: {PART_2}")

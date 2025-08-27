@@ -4,6 +4,10 @@ import re
 PUZZLE = [line.strip() for line in fileinput.input()]
 PART_1, PART_2 = 0, 0
 
+def onCreated():
+    support_tls()
+    is_aba()
+
 def support_tls(data):
     global PART_1, PART_2
     for line in data:
@@ -43,3 +47,5 @@ def search_aba(parts):
 support_tls(PUZZLE)
 print(f"Solution to part 1 is: {PART_1}")
 print(f"Solution to part 2 is: {PART_2}")
+
+

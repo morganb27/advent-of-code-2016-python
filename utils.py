@@ -13,6 +13,7 @@ from itertools import groupby
 #print(hash)  Output: 5d41402abc4b2a76b9719d911017c592
 #parsed = ast.literal_eval(line)
 
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
 @dataclass(frozen=True)
 class Point:
     x: float
